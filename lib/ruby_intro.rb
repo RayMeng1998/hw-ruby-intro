@@ -80,11 +80,7 @@ end
 
 class BookInStock
   def initialize(isbn, price)
-    if (isbn == '' || isbn.length < 5 || isbn[0..3] != 'isbn')
-      raise ArgumentError
-    end
-    tmp = isbn[4..-1].delete('0123456789-')
-    if (tmp == '' && price > 0.0)
+    if (isbn != '' && price > 0.0)
       @isbn = isbn
       @price = price
     else
@@ -92,21 +88,33 @@ class BookInStock
     end
   end
 
-  def isbn = (isbn)
-    if (isbn == '' || isbn.length < 5 || isbn[0..3] != 'isbn')
-      raise ArgumentError
-    end
-    tmp = isbn[4..-1].delete('0123456789-')
-    if (tmp == '')
+  def isbn=(isbn)
+    if (isbn != '')
       @isbn = isbn
     else
       raise ArgumentError
     end
   end
 
-  def price = (price)
-    @price = price
+  def isbn()
+    return @isbn
   end
 
+  def price=(price)
+    if (price > 0.0)
+      @price = price
+      return
+    else
+      raise ArgumentError
+    end
+  end
+
+  def price()
+    return @price
+  end
+  def price_as_string()
+    "$" + '%.2f' % @price
+  end
 # YOUR CODE HERE
+
 end
